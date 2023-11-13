@@ -63,40 +63,28 @@ $superheroes = [
   ], 
 ];
 
-
-
-function findName($name,$superheroes){
-    global $superheroes;
+function findHero($name,$superheroes){
     if (empty($name)){
-        return $superheroes;
+        $a = array();
+        foreach($superheroes as $superhero){
+            array_push($a,$superhero['alias']);
+        }
+        return $a;
     }else{
         foreach ($superheroes as $superhero){ 
-            $list = strtolower($superhero['alias']);
-            $name = strtolower($name);
+            $lista = strtolower($superhero['alias']);
+            $listb = strtolower($superhero['name']);
+            $namel = strtolower($name);
 
-            $words = explode(" ", $name);
-
-            $match = true;
-            foreach($words as $word){
-                if(stripos($list,$word) === false){
-                    $match = false;
-                    break;
-                }
-                else{
-                    return $superhero;
-                }
+            if (stripos($lista, $namel) !== false || stripos($listb, $namel) !== false){
+                return $superhero;
             }
-        }return null;
+        }
+        return null;
     }
 }
-
-$query = isset($_GET['search']) ? $_GET['search'] : '';
-$hero = findName($query,$superheroes);
-
-$a = array();
-foreach($superheroes as $superhero){
-    array_push($a,$superhero['alias']);
-}
-
-echo json_encode($a);
+$hero = [];
+$query = $_GET['search'];
+$hero = findHero($query,$superheroes);
+echo json_encode($hero);
 ?>
