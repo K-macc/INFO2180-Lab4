@@ -85,6 +85,7 @@ function findHero($name,$superheroes){
 }
 $hero = [];
 $query = $_GET['search'];
-$hero = findHero($query,$superheroes);
+$query_filter = filter_var($query, FILTER_SANITIZE_STRING);
+$hero = findHero($query_filter,$superheroes);
 echo json_encode($hero);
 ?>

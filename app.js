@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function (create) {
     var list = document.getElementById('list');
 
     document.getElementById("search-button").addEventListener("click", function (e) {
-        sanitize(search.value);
         e.preventDefault();
         fetch('superheroes.php?search=' + search.value)
             .then(response => response.json())
@@ -54,20 +53,6 @@ document.addEventListener('DOMContentLoaded', function (create) {
                 para.textContent = "";
             }
         }
-
-        function sanitize(string) {
-            const map = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#x27;',
-                "/": '&#x2F;',
-            };
-            const reg = /[&<>"'/]/ig;
-            return string.replace(reg, (match) => (map[match]));
-        }
-
     })
 })
 
